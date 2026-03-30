@@ -66,3 +66,23 @@ body, html {
 /* 百度地图信息窗体美化 */
 .BMap_bubble_title { font-weight: bold; color: #d63384; }
 .BMap_pop .BMap_top, .BMap_pop .BMap_center, .BMap_pop .BMap_bottom { border: none !important; }
+
+/* InfoWindow 内容样式（替代内联 style） */
+.custom-infowindow {
+    padding: 10px;
+    font-family: 'Noto Serif SC', serif;
+    line-height: 1.8;
+}
+
+.custom-infowindow strong {
+    color: #d63384;
+    font-size: 16px;
+    display: block;
+    margin-bottom: 8px;
+    border-bottom: 1px solid #eee;
+}
+
+.custom-infowindow div {
+    color: #555;
+    font-size: 14px;
+}
