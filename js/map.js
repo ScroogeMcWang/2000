@@ -30,15 +30,15 @@ function renderMarkers(points) {
         map.addOverlay(marker);
 
         // 点击弹窗
-        marker.addEventListener("click", function() {
-            var content = `
-                <div style="padding: 10px; font-family: 'Noto Serif SC', serif; line-height: 1.8;">
-                    <strong style="color: #d63384; font-size: 16px; display: block; margin-bottom: 8px; border-bottom: 1px solid #eee;">那一刻...</strong>
-                    <div style="color: #555; font-size: 14px;">${item.text}</div>
-                </div>
-            `;
-            var infoWindow = new BMap.InfoWindow(content, { width: 280, height: 0 });
-            map.openInfoWindow(infoWindow, pt);
+      marker.addEventListener("click", function() {
+    var content = `
+        <div class="custom-infowindow">
+            <strong>那一刻...</strong>
+            <div>${item.text}</div>
+        </div>
+    `;
+    var infoWindow = new BMap.InfoWindow(content, { width: 0, height: 0 });
+    map.openInfoWindow(infoWindow, pt);
         });
     });
 }
