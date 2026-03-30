@@ -25,14 +25,7 @@ function renderMarkers(points) {
         var pt = new BMap.Point(item.lng, item.lat);
         
         // 美化后的圆点标记
-        var marker = new BMap.Marker(pt, {
-            icon: new BMap.Symbol(BMap_Symbol_SHAPE_POINT, {
-                scale: 0.8,
-                fillColor: "#d63384",
-                fillOpacity: 0.8,
-                strokeWeight: 0
-            })
-        });
+        var marker = new BMap.Marker(pt);
         
         map.addOverlay(marker);
 
