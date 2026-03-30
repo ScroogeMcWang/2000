@@ -1,61 +1,30 @@
-// --- 占位符字符串管理 (后期可在此统改) ---
-const CONFIG = {
-    title: "邯郸 · 我们的独家记忆",
-    subtitle: "每一个坐标，都是一段无法抹去的故事",
-    footer: "愿所有深情都不被辜负",
-    mapCenter: { lng: 114.50, lat: 36.61 }, // 邯郸中心附近
-    zoomLevel: 14
-};
-
-// 页面文案初始化
-document.getElementById('page-title').innerText = CONFIG.title;
-document.getElementById('page-subtitle').innerText = CONFIG.subtitle;
-document.getElementById('footer-text').innerText = CONFIG.footer;
-
-// 初始化百度地图
-const map = new BMap.Map("map-container");
-const point = new BMap.Point(CONFIG.mapCenter.lng, CONFIG.mapCenter.lat);
-map.centerAndZoom(point, CONFIG.zoomLevel);
+// 初始化地图
+var map = new BMap.Map("map-container");
+// 设定邯郸中心点
+var centerPoint = new BMap.Point(114.50, 36.62);
+map.centerAndZoom(centerPoint, 14);
 map.enableScrollWheelZoom(true);
 
-// 设置地图风格 (可选：使用清新/浪漫风格)
+// 百度地图个性化配色 (重要：这里可以进一步去百度后台选“高端黑”或“清新蓝”风格)
 map.setMapStyleV2({
-    styleId: '4f253767c9c065f49d3790513e9a594d' // 这是一个示例柔和风格ID，需在百度后台创建
+    styleId: '这里可以替换为你生成的个性化风格ID' 
 });
 
-// 加载数据
-fetch('data.json')
-    .then(response => response.json())
-    .then(data => {
-        renderMarkers(data);
-    })
-    .catch(err => console.error("数据加载失败:", err));
-
 // 渲染标记点
-function renderMarkers(points) {
-    points.forEach(item => {
-        const pt = new BMap.Point(item.lng, item.lat);
-        
-        // 使用自定义爱心图标 (建议准备一个 heart.png)
-        // const myIcon = new BMap.Icon("img/heart.png", new BMap.Size(32, 32));
-        // const marker = new BMap.Marker(pt, { icon: myIcon });
-        
-        const marker = new BMap.Marker(pt); 
+// 假设你的数据文件里变量名是 MY_MEMORY_POINTS
+if (typeof MY_MEMORY_POINTS !== 'undefined') {
+    MY_MEMORY_POINTS.forEach(function(item) {
+        var pt = new BMap.Point(item.lng, item.lat);
+        var marker = new BMap.Marker(pt); 
         map.addOverlay(marker);
 
-        // 点击交互
         marker.addEventListener("click", function() {
-            const content = `
-                <div class="custom-infowindow">
-                    <strong>那个时刻...</strong>
-                    ${item.text}
-                </div>
-            `;
-            const infoWindow = new BMap.InfoWindow(content, {
-                width: 0,     // 宽度自适应
-                height: 0,    // 高度自适应
-                title: ""     // 禁用默认标题
-            });
+            var opts = {
+                width: 250,
+                height: 0,
+                title: "<span style='color:#d63384;font-family:serif;'>那段回忆...</span>"
+            };
+            var infoWindow = new BMap.InfoWindow(item.text, opts);
             map.openInfoWindow(infoWindow, pt);
         });
     });
